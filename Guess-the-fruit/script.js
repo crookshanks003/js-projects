@@ -20,14 +20,14 @@ function compare(e){
         if (guessWord.value.toLocaleLowerCase() === winningWord){
             setMessage(`${winningWord} is the correct answer. You won!`, 'text-success mt-1')
             guessWord.disabled = true;
-            btn.textContent = 'Play Again';
+            btn.textContent = 'Play';
             gameOver = true;
         } else {
             guessLeft -= 1;
             if (guessLeft === 0){
                 guessWord.disabled = true;
                 setMessage(`You Lost! ${winningWord} was the correct answer`,'text-danger mt-1');
-                btn.textContent = "Play Again";
+                btn.textContent = "Play";
                 gameOver = true;
             } else {
                 setMessage(`This is a wrong answer. You have ${guessLeft} attempts left.`, 'text-danger mt-1');
