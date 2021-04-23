@@ -1,25 +1,25 @@
 class Book {
-    constructor(title,author,date,shelf){
+    constructor(title, author, date, shelf) {
         this.title = title;
         this.author = author;
         this.date = date;
         this.shelf = shelf;
-        this.id = (Storage.getID() === undefined) ? 0 : Storage.getID().id + 1;
+        this.id = Storage.getID() === undefined ? 0 : Storage.getID().id + 1;
     }
 }
 
 class UIClass {
-
-    static displayBook(){
+    static displayBook() {
         const books = Storage.getItems();
-        books.forEach((book) => UIClass.addBooks(book));
+        books.forEach(book => UIClass.addBooks(book));
     }
 
-    static addBooks(book){
-        const table = document.getElementById('tableBody');
-        const row = document.createElement('tr');
-        row.setAttribute('data-toggle',"modal")
-        row.setAttribute('data-target',"#exampleModal")
+    static addBooks(book) {
+        const table = document.getElementById("tableBody");
+        const row = document.createElement("tr");
+        row.style.cursor = "pointer";
+        row.setAttribute("data-toggle", "modal");
+        row.setAttribute("data-target", "#exampleModal");
         row.innerHTML = `
             <td>${book.title}</td>
             <td>${book.author}</td>
@@ -28,92 +28,91 @@ class UIClass {
             <td style="display: none;">${book.id}</td>`;
         table.appendChild(row);
     }
-    
-    static submitBook(){
-        const title = document.getElementById('title');
-        const author = document.getElementById('author');
-        const shelf = document.getElementById('shelf');
-        const date = document.getElementById('date');
-        
-        let book = new Book(title.value,author.value,date.value,shelf.value);
+
+    static submitBook() {
+        const title = document.getElementById("title");
+        const author = document.getElementById("author");
+        const shelf = document.getElementById("shelf");
+        const date = document.getElementById("date");
+
+        let book = new Book(title.value, author.value, date.value, shelf.value);
         UIClass.addBooks(book);
         Storage.addItems(book);
-        
+
         title.value = "";
         author.value = "";
         shelf.value = "";
         date.value = "";
     }
 
-    static updateBook(row){
-        const title = document.getElementById('titleModal');
-        const author = document.getElementById('authorModal');
-        const shelf = document.getElementById('shelfModal');
-        const date = document.getElementById('dateModal');
-        const btn = document.getElementById('btnModal');
-        const del = document.getElementById('delModal');
+    static updateBook(row) {
+        const title = document.getElementById("titleModal");
+        const author = document.getElementById("authorModal");
+        const shelf = document.getElementById("shelfModal");
+        const date = document.getElementById("dateModal");
+        const btn = document.getElementById("btnModal");
+        const del = document.getElementById("delModal");
 
         const data = row.children;
         title.value = data[0].textContent;
         author.value = data[1].textContent;
-        shelf.value =data[3].textContent;
+        shelf.value = data[3].textContent;
         date.value = data[2].textContent;
-        
-        btn.addEventListener('click',(e) => {
+
+        btn.addEventListener("click", e => {
             data[0].textContent = title.value;
             data[1].textContent = author.value;
             data[2].textContent = date.value;
             data[3].textContent = shelf.value;
-            $('#exampleModal').modal('hide');
-        })
+            $("#exampleModal").modal("hide");
+        });
 
-        del.addEventListener('click', (e) => {
-            document.getElementById('tableBody').removeChild(row);
+        del.addEventListener("click", e => {
+            document.getElementById("tableBody").removeChild(row);
             Storage.deleteItems(Math.floor(data[4].textContent));
-            $('#exampleModal').modal('hide');
-        })
+            $("#exampleModal").modal("hide");
+        });
     }
 }
 
-
 class Storage {
-
-    static getItems(){
+    static getItems() {
         let books;
-        if (localStorage.getItem('books') === null){
+        if (localStorage.getItem("books") === null) {
             books = [];
         } else {
-            books = JSON.parse(localStorage.getItem('books'));
+            books = JSON.parse(localStorage.getItem("books"));
         }
         return books;
     }
 
-    static getID(){
+    static getID() {
         return Storage.getItems().pop();
     }
 
-    static addItems(book){
+    static addItems(book) {
         const books = Storage.getItems();
         books.push(book);
-        localStorage.setItem('books', JSON.stringify(books));
+        localStorage.setItem("books", JSON.stringify(books));
     }
 
-    static deleteItems(id){
+    static deleteItems(id) {
         const books = Storage.getItems();
-        books.forEach((book,i) => {
-            if (book.id === id){
-                books.splice(i,1);
+        books.forEach((book, i) => {
+            if (book.id === id) {
+                books.splice(i, 1);
             }
-        })
-        localStorage.setItem('books', JSON.stringify(books));
+        });
+        localStorage.setItem("books", JSON.stringify(books));
     }
 }
 
-document.addEventListener('DOMContentLoaded', UIClass.displayBook);
+document.addEventListener("DOMContentLoaded", UIClass.displayBook);
 
-document.getElementById('inputForm').addEventListener('submit',UIClass.submitBook);
+document
+    .getElementById("inputForm")
+    .addEventListener("submit", UIClass.submitBook);
 
-document.getElementById('tableBody').addEventListener('click',(e) => {
+document.getElementById("tableBody").addEventListener("click", e => {
     UIClass.updateBook(e.target.parentElement);
-})
-
+});

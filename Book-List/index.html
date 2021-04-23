@@ -1,111 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+            integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+            crossorigin="anonymous"
+        />
+        <title>Book List</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <title>Book List</title>
-</head>
-
-<body>
-    <div class="container mt-4">
-        <h1 class="text-center">My Books</h1>
-        <form id="inputForm" class="mt-3" action="#">
-            <div class="col-md-6 mb-3 mx-auto px-0">
-                <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" placeholder="Title" required>
-            </div>
-            <div class="col-md-6 mb-3 mx-auto px-0">
-                <label for="author">Author</label>
-                <input type="text" class="form-control" id="author" placeholder="Author" required>
-            </div>
-            <div class="form-row justify-content-center">
-                <div class="col-md-3 mb-3">
-                    <label for="shelf">Shelf</label>
-                    <select class="custom-select" id="shelf" required>
-                        <option selected disabled value="">Choose shelf...</option>
-                        <option value="Want to Read">Want to Read</option>
-                        <option value="Currently Reading">Currently Reading</option>
-                        <option value="Read">Read</option>
-                    </select>
+    <body>
+        <div class="container mt-4">
+            <h1 class="text-center">My Books</h1>
+            <form id="inputForm" class="mt-3" action="#">
+                <div class="col-md-6 mb-3 mx-auto px-0">
+                    <label for="title">Title</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="title"
+                        placeholder="Title"
+                        required
+                    />
                 </div>
-                <div class="col-md-3 mb-3">
-                    <label for="validationDefault03">Date</label>
-                    <input type="date" class="form-control" id="date" required>
+                <div class="col-md-6 mb-3 mx-auto px-0">
+                    <label for="author">Author</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="author"
+                        placeholder="Author"
+                        required
+                    />
                 </div>
-            </div>
-            <button class="btn btn-block col-6 mx-auto mt-2 btn-primary" type="submit">Add Book</button>
-        </form>
-        <br>
-        <table class="table table-hover mt-5">
-            <thead>
-                <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Author</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Shelf</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-            </tbody>
-        </table>
+                <div class="form-row justify-content-center">
+                    <div class="col-md-3 mb-3">
+                        <label for="shelf">Shelf</label>
+                        <select class="custom-select" id="shelf" required>
+                            <option selected disabled value="">
+                                Choose shelf...
+                            </option>
+                            <option value="Want to Read">Want to Read</option>
+                            <option value="Currently Reading">
+                                Currently Reading
+                            </option>
+                            <option value="Read">Read</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="validationDefault03">Date</label>
+                        <input
+                            type="date"
+                            class="form-control"
+                            id="date"
+                            required
+                        />
+                    </div>
+                </div>
+                <button
+                    class="btn btn-block col-6 mx-auto mt-2 btn-primary"
+                    type="submit"
+                >
+                    Add Book
+                </button>
+            </form>
+            <br />
+            <table class="table table-hover mt-5">
+                <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Shelf</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Update Book</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="modalForm" action="">
-                            <div class="col-10 mb-3 mx-auto px-0">
-                                <label for="title">Title</label>
-                                <input type="text" class="form-control" id="titleModal" placeholder="Title" required>
-                            </div>
-                            <div class="col-10 mb-3 mx-auto px-0">
-                                <label for="author">Author</label>
-                                <input type="text" class="form-control" id="authorModal" placeholder="Author" required>
-                            </div>
-                            <div class="form-row justify-content-center">
-                                <div class="col-5 mb-3">
-                                    <label for="shelf">Shelf</label>
-                                    <select class="custom-select" id="shelfModal" required>
-                                        <option selected disabled value="">Choose shelf...</option>
-                                        <option value="Want to Read">Want to Read</option>
-                                        <option value="Currently Reading">Currently Reading</option>
-                                        <option value="Read">Read</option>
-                                    </select>
+            <!-- Modal -->
+            <div
+                class="modal fade"
+                id="exampleModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Update Book
+                            </h5>
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="modalForm" action="">
+                                <div class="col-10 mb-3 mx-auto px-0">
+                                    <label for="title">Title</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="titleModal"
+                                        placeholder="Title"
+                                        disabled
+                                    />
                                 </div>
-                                <div class="col-5 mb-3">
-                                    <label for="date">Date</label>
-                                    <input type="date" class="form-control" id="dateModal" required>
+                                <div class="col-10 mb-3 mx-auto px-0">
+                                    <label for="author">Author</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="authorModal"
+                                        placeholder="Author"
+                                        disabled
+                                    />
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                        <button type="button" class="btn btn-primary" id="btnModal">Update</button>
-                        <button type="button" class="btn btn-danger" id="delModal">Delete</button>
+                                <div class="form-row justify-content-center">
+                                    <div class="col-5 mb-3">
+                                        <label for="shelf">Shelf</label>
+                                        <select
+                                            class="custom-select"
+                                            id="shelfModal"
+                                            required
+                                        >
+                                            <option selected disabled value="">
+                                                Choose shelf...
+                                            </option>
+                                            <option value="Want to Read">
+                                                Want to Read
+                                            </option>
+                                            <option value="Currently Reading">
+                                                Currently Reading
+                                            </option>
+                                            <option value="Read">Read</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-5 mb-3">
+                                        <label for="date">Date</label>
+                                        <input
+                                            type="date"
+                                            class="form-control"
+                                            id="dateModal"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                id="btnModal"
+                            >
+                                Update
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-danger"
+                                id="delModal"
+                            >
+                                Delete
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
-</script>
-<script src="script.js"></script>
-
+    </body>
+    <script
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"
+    ></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
 </html>
