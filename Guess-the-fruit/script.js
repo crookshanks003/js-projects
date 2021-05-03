@@ -1,3 +1,4 @@
+// this is a normal comment
 const words = [
 	"apple",
 	"banana",
