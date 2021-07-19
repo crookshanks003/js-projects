@@ -59,7 +59,7 @@ class UIClass {
 		shelf.value = data[3].textContent;
 		date.value = data[2].textContent;
 
-		btn.addEventListener("click", (e) => {
+		btn.addEventListener("click", () => {
 			data[0].textContent = title.value;
 			data[1].textContent = author.value;
 			data[2].textContent = date.value;
@@ -67,7 +67,7 @@ class UIClass {
 			$("#exampleModal").modal("hide");
 		});
 
-		del.addEventListener("click", (e) => {
+		del.addEventListener("click", () => {
 			document.getElementById("tableBody").removeChild(row);
 			Storage.deleteItems(Math.floor(data[4].textContent));
 			$("#exampleModal").modal("hide");
